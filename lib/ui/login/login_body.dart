@@ -36,69 +36,77 @@ class _LoginBodyState extends State<LoginBody> {
   }
 
   Widget buildBody(BuildContext context) {
-    return SafeArea(
-      child: Column(
-        mainAxisSize: MainAxisSize.max,
-        children: <Widget>[
-          Align(
-            alignment: Alignment.center,
-            child: Container(
-              margin: EdgeInsets.only(
-                  top: MediaQuery.of(context).size.height * 0.25),
-              child: Image.asset('assets/img/logo-web-2020b-c8dedabc.png'),
-            ),
+    return Container(
+      height: MediaQuery.of(context).size.height -
+          MediaQuery.of(context).padding.top,
+      child: SingleChildScrollView(
+        child: SafeArea(
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            children: <Widget>[
+              Align(
+                alignment: Alignment.center,
+                child: Container(
+                  margin: EdgeInsets.only(
+                      top: MediaQuery.of(context).orientation ==
+                              Orientation.portrait
+                          ? MediaQuery.of(context).size.height * 0.25
+                          : MediaQuery.of(context).size.height * 0.1),
+                  child: Image.asset('assets/img/logo-web-2020b-c8dedabc.png'),
+                ),
+              ),
+              buildInputs(),
+              FlatButton(
+                onPressed: () {},
+                child: Text(
+                  'Olvidé mi contraseña',
+                  style: GoogleFonts.encodeSans(
+                      color: Theme.of(context).primaryColorDark),
+                ),
+              ),
+              buildBotonLogIn(context),
+            ],
           ),
-          buildInputs(),
-          FlatButton(
-            onPressed: () {},
-            child: Text(
-              'Olvidé mi contraseña',
-              style: GoogleFonts.encodeSans(
-                  color: Theme.of(context).primaryColorDark),
-            ),
-          ),
-          buildBotonLogIn(context),
-        ],
+        ),
       ),
     );
   }
 
   Widget buildBotonLogIn(BuildContext context) {
-    return Expanded(
-      child: Align(
-        alignment: Alignment.bottomCenter,
-        child: InkWell(
-          onTap: () {
-            setState(() {
-              _isLoading = true;
-            });
-            widget._bloc
-                .signIn(_usuarioController.value.text,
-                    _passwordControlelr.value.text)
-                .then(
-              (_) {
-                Navigator.of(context).pushReplacement(
-                  PageTransition(
-                      child: HomePage(), type: PageTransitionType.fade),
-                );
-              },
-            );
-          },
-          borderRadius: BorderRadius.circular(10),
-          child: Container(
-            margin: const EdgeInsets.all(10),
-            padding: const EdgeInsets.all(8),
-            width: double.infinity,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: Theme.of(context).primaryColorDark),
-            child: Text(
-              'Ingresar',
-              textAlign: TextAlign.center,
-              style: GoogleFonts.encodeSans(
-                color: Colors.white,
-                fontSize: 20,
-              ),
+    return Align(
+      child: InkWell(
+        onTap: () {
+          setState(() {
+            _isLoading = true;
+          });
+          widget._bloc
+              .signIn(
+                  _usuarioController.value.text, _passwordControlelr.value.text)
+              .then(
+            (_) {
+              Navigator.of(context).pushReplacement(
+                PageTransition(
+                    settings: RouteSettings(name: '/home'),
+                    child: HomePage(),
+                    type: PageTransitionType.fade),
+              );
+            },
+          );
+        },
+        borderRadius: BorderRadius.circular(10),
+        child: Container(
+          margin: const EdgeInsets.all(10),
+          padding: const EdgeInsets.all(8),
+          width: double.infinity,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: Theme.of(context).primaryColorDark),
+          child: Text(
+            'Ingresar',
+            textAlign: TextAlign.center,
+            style: GoogleFonts.encodeSans(
+              color: Colors.white,
+              fontSize: 20,
             ),
           ),
         ),

@@ -11,6 +11,7 @@ class BuscarSolicitudBloc implements Bloc {
   });
 
   final Function(bool) callback;
+  SolicitudFirmanteDTO solicitud;
   bool hasResult = false;
   bool hasFetched = false;
   final _controller = StreamController<ResultadoBusquedaSolicitudDTO>();
@@ -26,7 +27,7 @@ class BuscarSolicitudBloc implements Bloc {
 
   Future<ResultadoBusquedaSolicitudDTO> buscarSolicitud() async {
     try {
-      ResultadoBusquedaSolicitudDTO solicitud = await Future.delayed(
+      ResultadoBusquedaSolicitudDTO resultadoBusqueda = await Future.delayed(
         Duration(milliseconds: 300),
         () => ResultadoBusquedaSolicitudDTO(
             solicitud: SolicitudFirmanteDTO(
@@ -37,9 +38,10 @@ class BuscarSolicitudBloc implements Bloc {
                 documento: 'Contrato de Bonos 2020'),
             hasResult: true),
       );
-      _controller.sink.add(solicitud);
+      _controller.sink.add(resultadoBusqueda);
       hasResult = true;
       hasFetched = true;
+      solicitud = resultadoBusqueda.solicitud;
       callback(hasResult);
     } catch (e) {
       print(e);
@@ -59,6 +61,7 @@ class SolicitudFirmanteDTO {
   String documento;
   int id;
   String app;
+  Image firma;
 
   SolicitudFirmanteDTO({
     this.app,
@@ -66,6 +69,7 @@ class SolicitudFirmanteDTO {
     this.ente,
     this.firmante,
     this.id,
+    this.firma,
   });
 }
 

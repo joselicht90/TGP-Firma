@@ -8,9 +8,15 @@ class LoginBloc implements Bloc {
 
   Stream<int> get stream => _controller.stream;
 
-  Future<String> signIn(String usuario, String password) async {
+  Future<Object> signIn(String usuario, String password) async {
     try {
-      return Repository.signIn(usuario, password);
+      if (usuario == '') {
+        throw (Exception('Debe ingresar un nombre de usuario'));
+      }
+      if (password == '') {
+        throw (Exception('Debe ingresar una contraseña'));
+      }
+      return await Repository.signIn(usuario, password);
     } catch (e) {
       print(e);
       throw e;

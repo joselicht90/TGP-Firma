@@ -18,28 +18,26 @@ class MyApp extends StatelessWidget {
       title: 'TGP Firma',
       initialRoute: '/login',
       routes: {
-        '/login' : (context) => LogInPage(),
-        '/home' : (context) => HomePage(),
-        '/home/buscar_solicitud' : (context) => BuscarSolicitudPage(),
-        '/home/buscar_solicitud/firmar_solicitud' : (context) => FirmarSolicitud(solicitud: SolicitudFirmanteDTO(),),
-        '/home/buscar_solicitud/firmar_solicitud/confirmar_solicitud' : (context) => ConfirmarFirmaPage(solicitud: SolicitudFirmanteDTO(),),
+        '/login': (context) => LogInPage(),
+        '/home': (context) => HomePage(),
+        '/home/buscar_solicitud': (context) => BuscarSolicitudPage(),
+        '/home/buscar_solicitud/firmar_solicitud': (context) => FirmarSolicitud(
+              solicitud: SolicitudFirmanteDTO(),
+            ),
+        '/home/buscar_solicitud/firmar_solicitud/confirmar_solicitud':
+            (context) => ConfirmarFirmaPage(
+                  solicitud: SolicitudFirmanteDTO(),
+                ),
       },
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primaryColor: Color(0xFF00b1c7),
-        primaryColorDark: Color(0xFF242427),
-        primaryTextTheme: TextTheme(
-          body1: GoogleFonts.encodeSans(
-            color: Colors.white
-          ),
-          title: GoogleFonts.encodeSans(
-            color: Colors.white
-          ),
-          subtitle: GoogleFonts.encodeSans(
-            color: Colors.black
-          ),
-        )
-      ),
+          primaryColor: Color(0xFF00b1c7),
+          primaryColorDark: Color(0xFF242427),
+          primaryTextTheme: TextTheme(
+            bodyText2: GoogleFonts.encodeSans(color: Colors.white),
+            headline6: GoogleFonts.encodeSans(color: Colors.white),
+            subtitle2: GoogleFonts.encodeSans(color: Colors.black),
+          )),
       // home: LogInPage(),
     );
   }

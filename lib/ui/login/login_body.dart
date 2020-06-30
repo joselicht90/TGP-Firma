@@ -75,23 +75,86 @@ class _LoginBodyState extends State<LoginBody> {
   Widget buildBotonLogIn(BuildContext context) {
     return Align(
       child: InkWell(
-        onTap: () {
+        onTap: () async {
           setState(() {
             _isLoading = true;
           });
-          widget._bloc
-              .signIn(
-                  _usuarioController.value.text, _passwordControlelr.value.text)
-              .then(
-            (_) {
-              Navigator.of(context).pushReplacement(
-                PageTransition(
-                    settings: RouteSettings(name: '/home'),
-                    child: HomePage(),
-                    type: PageTransitionType.fade),
-              );
-            },
-          );
+          try {
+            await widget._bloc
+                .signIn(_usuarioController.value.text,
+                    _passwordControlelr.value.text)
+                .then(
+              (_) {
+                Navigator.of(context).pushReplacement(
+                  PageTransition(
+                      settings: RouteSettings(name: '/home'),
+                      child: HomePage(),
+                      type: PageTransitionType.fade),
+                );
+              },
+            );
+          } catch (err) {
+            setState(() {
+              _isLoading = false;
+            });
+            var dialog = Dialog(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Container(
+                padding: const EdgeInsets.all(5),
+                margin: const EdgeInsets.all(5),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.white),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      'Ha ocurrido un error',
+                      textAlign: TextAlign.start,
+                      style: GoogleFonts.encodeSans(fontSize: 20),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(top: 15),
+                      child: Text(
+                        err.message,
+                        textAlign: TextAlign.start,
+                        style: GoogleFonts.encodeSans(fontSize: 15),
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(top: 15),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: <Widget>[
+                          Container(
+                            margin: const EdgeInsets.all(5),
+                            child: FlatButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              color: Theme.of(context).primaryColor,
+                              child: Text(
+                                'Aceptar',
+                                style: GoogleFonts.encodeSans(
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            );
+
+            showDialog(context: context, builder: (context) => dialog);
+          }
         },
         borderRadius: BorderRadius.circular(10),
         child: Container(

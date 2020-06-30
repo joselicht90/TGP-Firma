@@ -6,7 +6,7 @@
     android:versionName="1.0.0" >
 
     <uses-sdk
-        android:minSdkVersion="16"
+        android:minSdkVersion="18"
         android:targetSdkVersion="28" />
     <!--
          Flutter needs it to communicate with the running application
@@ -22,8 +22,10 @@
     -->
     <application
         android:name="io.flutter.app.FlutterApplication"
+        android:allowBackup="false"
         android:appComponentFactory="androidx.core.app.CoreComponentFactory"
         android:debuggable="true"
+        android:fullBackupContent="false"
         android:icon="@mipmap/ic_launcher"
         android:label="tgp_firma" >
         <activity

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:tgp_firma/bloc/shared_preferences/shared_preferences_bloc.dart';
 import 'package:tgp_firma/ui/buscar_solicitud/buscar_solicitud.dart';
 import 'package:tgp_firma/ui/generics/background_image.dart';
 import 'package:tgp_firma/ui/home/home_item.dart';
@@ -150,7 +151,8 @@ class LogOutDialog extends StatelessWidget {
                   Container(
                     margin: const EdgeInsets.all(5),
                     child: FlatButton(
-                      onPressed: () {
+                      onPressed: () async {
+                        await SharedPreferencesBloc.logOut();
                         Navigator.of(context).pushReplacement(
                           PageTransition(
                             child: LogInPage(),

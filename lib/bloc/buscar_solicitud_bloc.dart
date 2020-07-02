@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 
 import 'interface/bloc.dart';
@@ -62,6 +63,7 @@ class SolicitudFirmanteDTO {
   int id;
   String app;
   Image firma;
+  Uint8List bytearray;
 
   SolicitudFirmanteDTO({
     this.app,
@@ -70,6 +72,7 @@ class SolicitudFirmanteDTO {
     this.firmante,
     this.id,
     this.firma,
+    this.bytearray,
   });
 }
 

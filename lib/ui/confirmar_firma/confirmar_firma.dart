@@ -7,6 +7,8 @@ import 'package:tgp_firma/ui/buscar_solicitud/buscar_solicitud.dart';
 import 'package:tgp_firma/ui/confirmar_firma/landscape_body.dart';
 import 'package:tgp_firma/ui/confirmar_firma/portrait_body.dart';
 import 'package:tgp_firma/ui/generics/background_image.dart';
+import 'dart:convert';
+import 'dart:io';
 
 class ConfirmarFirmaPage extends StatefulWidget {
   ConfirmarFirmaPage({

@@ -1,4 +1,4 @@
-#Tue Jun 30 10:49:15 ART 2020
+#Wed Jul 01 07:58:02 ART 2020
 base.0=C\:\\Users\\josel\\Documents\\GitHub\\TGP-Firma\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\out\\classes.dex
 path.0=classes.dex
 renamed.0=classes.dex

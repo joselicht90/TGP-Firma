@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
@@ -142,6 +143,13 @@ class _FirmarSolicitudState extends State<FirmarSolicitud> {
                         Image _image =
                             Image.memory(_byteData.buffer.asUint8List());
                         widget.solicitud.firma = _image;
+                        widget.solicitud.bytearray =
+                            _byteData.buffer.asUint8List();
+                        var simplified = sign.points
+                            .map((e) =>
+                                [e != null ? e.dx : 0, e != null ? e.dy : 0])
+                            .toList();
+                        String j = json.encode(simplified);
                         Navigator.of(context).push(
                           PageTransition(
                               settings: RouteSettings(
